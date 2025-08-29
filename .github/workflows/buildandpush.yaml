@@ -50,7 +50,7 @@ jobs:
       # Build the Docker image
       - name: Build
       #need to update with the WIZOS build steps
-        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:$declan1 --file ./Dockerfile ./$DIRECTORY
+        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:$declan1 -file Dockerfile ./$DIRECTORY
 
       # Download Wiz CLI
       - name: Download Wiz CLI
