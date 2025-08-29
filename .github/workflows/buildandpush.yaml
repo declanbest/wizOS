@@ -47,10 +47,18 @@ jobs:
       - name: WizOS Auth
         run: echo ${WIZ_OS_REGISTRY_PWD} | docker login --username ${WIZ_OS_REGISTRY_UNAME} --password-stdin ${WIZ_OS_REGISTRY_URL}
 
+      #Debugging Step
+      - name: Debug File Structure
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "List all files recursively..."
+          ls -laR
+
+
       # Build the Docker image
       - name: Build
       #need to update with the WIZOS build steps
-        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:declan1 -f Dockerfile .
+        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:declan1 .
 
       # Download Wiz CLI
       - name: Download Wiz CLI
