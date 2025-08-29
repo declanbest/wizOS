@@ -17,10 +17,15 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
       WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
       WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-      IMAGE_TAG: ${{ github.sha }}
+      #WizOS Service Account Credentials
+      WIZ_OS_ID: ${{ secrets.WIZ_OS_ID}}
+      WIZ_OS_SECRET: ${{ secrets.WIZ_OS_SECRET}}
+      #WizOS Registry Access
+      WIZ_OS_REGISTRY_UNAME: ${{ secrets.WIZ_OS_Registry_UNAME}}
+      WIZ_OS_REGISTRY_PWD: ${{ secrets.WIZ_OS_Registry_PWD}}
+      WIZ_OS_REGISTRY_URL: ${{ secrets.WIZ_OS_Registry_URL}}
       # Update if using CSATEST
       WIZ_ENV: prod
       WIZ_VULN_POLICY: "Default vulnerabilities policy"
@@ -38,9 +43,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Authenticate to WizOS Registry
+      - name: WizOS Auth
+        run: echo ${WIZ_OS_REGISTRY_PWD} | docker login --username ${WIZ_OS_REGISTRY_UNAME} --password-stdin ${WIZ_OS_REGISTRY_URL}
       # Build the Docker image
       - name: Build
-        run: docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:${IMAGE_TAG} --file ./$DIRECTORY/Dockerfile ./$DIRECTORY
+      #need to update with the WIZOS build steps
+        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:$declan1 --file ./$DIRECTORY/Dockerfile ./$DIRECTORY
 
       # Download Wiz CLI
       - name: Download Wiz CLI
