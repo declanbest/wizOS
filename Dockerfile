@@ -1,7 +1,5 @@
 FROM registry.os.wiz.io/python:3.13
 
-WORKDIR /app
-
 # WIZOS_CLIENT secrets are passed to this dockerfile by `docker build`
 # use apk-auth to install packages from the wizos apk registry
 RUN --mount=type=secret,id=WIZOS_CLIENT_ID \
@@ -10,11 +8,11 @@ RUN --mount=type=secret,id=WIZOS_CLIENT_ID \
  apk add --no-cache \
  python3
 
-COPY /app/requirements.txt .
+WORKDIR /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./src/ .
+COPY ./src/ /app
 
 ENTRYPOINT ["python3", "main.py"]
 
