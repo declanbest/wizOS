@@ -10,11 +10,11 @@ RUN --mount=type=secret,id=WIZOS_CLIENT_ID \
  apk add --no-cache \
  python3
 
-COPY app/requirements.txt .
+COPY /app/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./src/ /app
+COPY ./src/ .
 
 ENTRYPOINT ["python3", "main.py"]
 
