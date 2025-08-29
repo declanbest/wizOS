@@ -46,10 +46,11 @@ jobs:
       # Authenticate to WizOS Registry
       - name: WizOS Auth
         run: echo ${WIZ_OS_REGISTRY_PWD} | docker login --username ${WIZ_OS_REGISTRY_UNAME} --password-stdin ${WIZ_OS_REGISTRY_URL}
+
       # Build the Docker image
       - name: Build
       #need to update with the WIZOS build steps
-        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:$declan1 --file ./$DIRECTORY/Dockerfile ./$DIRECTORY
+        run: docker build --secret id=${WIZ_OS_ID} --secret id=${WIZ_OS_SECRET} -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${NAME}:$declan1 --file ./Dockerfile ./$DIRECTORY
 
       # Download Wiz CLI
       - name: Download Wiz CLI
