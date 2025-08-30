@@ -10,9 +10,9 @@ RUN --mount=type=secret,id=WIZOS_CLIENT_ID \
  apk add --no-cache \
  python3
 
-COPY requirements.txt .
+#COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./src .
 
