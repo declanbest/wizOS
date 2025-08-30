@@ -14,7 +14,7 @@ RUN --mount=type=secret,id=WIZOS_CLIENT_ID \
 
 #RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./src .
+#COPY ./src .
 
 #COPY ./app/ ./app/
 
