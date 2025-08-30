@@ -54,6 +54,8 @@ jobs:
           echo "List all files recursively..."
           ls -laR
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3 
 
       # Build the Docker image
       - name: Build
